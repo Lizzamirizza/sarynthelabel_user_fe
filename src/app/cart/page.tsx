@@ -1,11 +1,11 @@
-// cart/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Product } from "../lib/types/Product";
-import { getCart } from "../utils/cart";
+import { getCart, saveCart } from "../utils/cart"; // pastikan saveCart ada
 import Link from "next/link";
+import { X } from "lucide-react"; // pastikan lucide-react sudah diinstall
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -15,6 +15,12 @@ export default function Cart() {
     setCartItems(cart);
   }, []);
 
+  const handleRemoveItem = (indexToRemove: number) => {
+    const newCart = cartItems.filter((_, index) => index !== indexToRemove);
+    setCartItems(newCart);
+    saveCart(newCart); // simpan kembali ke localStorage
+  };
+
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   return (
@@ -23,18 +29,19 @@ export default function Cart() {
       <div className="flex flex-col items-center min-h-screen bg-white font-inter">
         <h1 className="text-2xl mt-30 text-black mb-10 font-bold">Cart</h1>
         <div className="w-full max-w-4xl">
-          <div className="grid grid-cols-4 text-center border-b py-2 text-gray-500 text-[13px]">
+          <div className="grid grid-cols-5 text-center border-b py-2 text-gray-500 text-[13px]">
             <div>PRODUCT</div>
             <div>PRICE</div>
             <div>QUANTITY</div>
             <div>TOTAL</div>
+            <div></div> {/* Kolom untuk icon X */}
           </div>
 
           {/* Cart Items */}
           {cartItems.map((item, index) => (
             <div
               key={index}
-              className="grid grid-cols-4 text-center items-center border-b py-4 text-black text-sm"
+              className="grid grid-cols-5 text-center items-center border-b py-4 text-black text-sm"
             >
               <div className="flex items-center justify-center">
                 <img
@@ -47,6 +54,11 @@ export default function Cart() {
               <div>{item.price.toLocaleString()} IDR</div>
               <div>1</div>
               <div>{item.price.toLocaleString()} IDR</div>
+              <div>
+                <button onClick={() => handleRemoveItem(index)}>
+                  <X className="w-4 h-4 text-black hover:text-red-500 transition" />
+                </button>
+              </div>
             </div>
           ))}
 

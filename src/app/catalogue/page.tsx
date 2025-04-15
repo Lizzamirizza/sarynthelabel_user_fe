@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "@/app/components/navbar";
+import Navbar from "../../../src/app/components/Footer";
 
 export const metadata = {
     title: "Catalogue - Sarynthelebel",

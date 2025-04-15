@@ -3,7 +3,6 @@
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "./components/Footer";
 import LoadingOverlay from "./components/loadingOverlay";
 
 const geistSans = Geist({
@@ -26,7 +25,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Suspense fallback={<LoadingOverlay />}>
           <main className="flex-grow">{children}</main>
         </Suspense>
-        <Footer />
       </body>
     </html>
   );

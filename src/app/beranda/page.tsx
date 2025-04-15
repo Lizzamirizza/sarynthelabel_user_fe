@@ -8,6 +8,7 @@ import AvailableProducts from "../components/AvailableProducts";
 import RestockedSection from "../components/RestockedSection";
 import Pagination from "../components/Pagination";
 import { Product } from "../lib/types/Product";
+import Footer from "../components/Footer"
 
 
 export default function HomePage() {
@@ -40,6 +41,7 @@ export default function HomePage() {
       <Categories />
       <AvailableProducts products={availableProducts} />
       <RestockedSection products={restockedProducts} />
+      <Footer />
     </>
   );
 }
