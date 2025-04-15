@@ -1,39 +1,36 @@
-import Image from "next/image";
-import { FaInstagram, FaEnvelope } from "react-icons/fa"; // Import icon dari react-icons
+"use client";
 
-export default function Footer() {
-    return (
-        <footer className="flex flex-col items-center py-6 border-t text-gray-900 bg-white w-full font-sans text-[15px]">
-            {/* Bagian Atas: Logo - Navigasi - Sosial Media */}
-            <div className="flex items-center justify-between w-full max-w-4xl px-6">
-                {/* Logo (Kiri) */}
-                <div className="flex items-center space-x-2">
-                    <Image src="/logo_saryn.png" alt="Sarynthelabel Logo" width={120} height={40} />
-                    <span className="text-[15px] font-semibold">Sarynthelabel</span>
-                </div>
+import React from "react";
 
-                {/* Navigasi Tengah */}
-                <nav className="flex space-x-6 font-medium">
-                    <a href="/catalogue" className="hover:underline text-[15px]">Catalogue</a>
-                    <a href="/about" className="hover:underline text-[15px]">About</a>
-                    <a href="/custom" className="hover:underline text-[15px]">Custom</a>
-                </nav>
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-white border-t w-full">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-6 relative">
+        {/* Left: Logo */}
+        <div className="flex items-center space-x-2 mb-4 md:mb-0">
+          <img src="/sarynlogo.png" alt="Logo" className="h-8" />
+          <span className="text-lg font-semibold text-black">sarynthelebel</span>
+        </div>
 
-                {/* Ikon Sosial Media (Kanan) */}
-                <div className="flex space-x-4">
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                        <FaInstagram size={24} className="hover:text-gray-500 transition" />
-                    </a>
-                    <a href="mailto:your-email@example.com">
-                        <FaEnvelope size={24} className="hover:text-gray-500 transition" />
-                    </a>
-                </div>
-            </div>
+        {/* Center: Navigation */}
+        <nav className="flex space-x-6 text-black text-sm font-medium mb-4 md:mb-0 md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
+          <a href="#" className="hover:underline">Catalogue</a>
+          <a href="#" className="hover:underline">About</a>
+          <a href="#" className="hover:underline">Custom</a>
+        </nav>
 
-            {/* Copyright (Bawah Tengah) */}
-            <p className="mt-4 text-[15px] text-gray-500 text-center">
-                © 2025 Sarynthelabel. All Rights Reserved.
-            </p>
-        </footer>
-    );
-}
+        {/* Right: Social icons */}
+        <div className="flex space-x-6">
+          <img src="/instagram.svg" alt="Instagram" className="h-6 w-6 cursor-pointer" />
+          <img src="/gmail.svg" alt="Gmail" className="h-6 w-6 cursor-pointer" />
+        </div>
+      </div>
+
+      <div className="py-2 bg-gray-100 w-full text-center">
+        <p className="text-gray-500 text-xs">© 2025 Sarynthelebel. All Rights Reserved.</p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

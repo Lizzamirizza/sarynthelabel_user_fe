@@ -1,17 +1,45 @@
-import React from "react";
-import Navbar from "@/app/components/navbar";
+"use client";
 
-export const metadata = {
-    title: "Beranda - Sarynthelebel",
-};
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
+import Categories from "../components/Categories";
+import AvailableProducts from "../components/AvailableProducts";
+import RestockedSection from "../components/RestockedSection";
+import Pagination from "../components/Pagination";
+import { Product } from "../lib/types/Product";
+
 
 export default function HomePage() {
-    return (
-        <>
-            <Navbar />
-            <div className="flex items-center justify-center h-screen bg-gray-800">
-                <h1 className="text-xl font-bold text-white">ini halaman beranda yang dibuat Tasya cantik</h1>
-            </div>
-        </>
-    );
+  const [products, setProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("/api/products");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data: Product[] = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const availableProducts = products.filter(p => p.stock > 0);
+  const restockedProducts = products.filter(p => p.stock === 0);
+  
+
+  return (
+    <>
+      <Navbar />
+      <HeroSection />
+      <Categories />
+      <AvailableProducts products={availableProducts} />
+      <RestockedSection products={restockedProducts} />
+    </>
+  );
 }

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import * as React from "react"
 
 export default function Register() {
     const [name, setName] = useState("");
@@ -12,7 +14,7 @@ export default function Register() {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const handleRegister = (e: React.FormEvent) => {
+    const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
@@ -20,11 +22,29 @@ export default function Register() {
             return;
         }
 
-        // Simpan status login setelah registrasi berhasil
-        localStorage.setItem("isLoggedIn", "true");
+        try {
+            // Mengirim data registrasi ke API backend Laravel
+            const response = await axios.post("/api/register", {
+                name,
+                username,
+                email,
+                password,
+            });
 
-        // Redirect ke halaman user
-        router.push("/user");
+            // Jika registrasi berhasil, simpan status login
+            localStorage.setItem("isLoggedIn", "true");
+
+            // Redirect ke halaman user
+            router.push("/user");
+
+        } catch (error) {
+            // Menangani error jika terjadi
+            if (axios.isAxiosError(error)) {
+                setError("Terjadi kesalahan saat registrasi. Periksa kembali data yang dimasukkan.");
+            } else {
+                setError("Terjadi kesalahan jaringan.");
+            }
+        }
     };
 
     return (
