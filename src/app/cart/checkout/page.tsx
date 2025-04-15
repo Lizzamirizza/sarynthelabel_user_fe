@@ -1,6 +1,6 @@
 "use client"
 
-//  pages/cart/checkout.tsx
+// pages/cart/checkout.tsx
 import React, { useEffect, useState } from "react";
 import { Product } from "../../lib/types/Product";
 
