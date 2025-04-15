@@ -18,7 +18,7 @@ export default function Cart() {
   const handleRemoveItem = (indexToRemove: number) => {
     const newCart = cartItems.filter((_, index) => index !== indexToRemove);
     setCartItems(newCart);
-    saveCart(newCart); // simpan kembali ke localStorage
+    saveCart(newCart); // simpan kembali ke  localStorage
   };
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
