@@ -12,6 +12,9 @@ export default function Navbar(): React.JSX.Element {
             
             {/* Icons positioned in the middle of the right-side space */}
             <div className="absolute right-[15%] flex gap-6">
+                <Link href="/beranda">
+                    <Image src="/home.svg" alt="Home" width={22} height={22} className="cursor-pointer" />
+                </Link>
                 <Link href="/search">
                     <Image src="/search.svg" alt="Search" width={22} height={22} className="cursor-pointer" />
                 </Link>
