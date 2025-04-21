@@ -13,12 +13,27 @@ interface ProductDetailProps {
 
 const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [buttonText, setButtonText] = useState("Order"); // Status awal tombol adalah "Order"
+  const [isLoading, setIsLoading] = useState(false); // Status loading
 
   if (!product) return <div>Loading...</div>;
 
   const handleOrder = () => {
+    if (isLoading) return; // Cegah klik ganda
+
+    setIsLoading(true); // Mulai loading
+    setButtonText("Add to Cart"); // Ubah teks tombol menjadi "Add to Cart"
+    
     addToCart(product); // ✅ Tambah ke cart
-    alert("Product added to cart!"); // Optional: bisa diganti pakai toast/alert UI
+
+    // Ganti tombol menjadi "Success" setelah berhasil menambahkan ke cart
+    setButtonText("Success");
+    
+    // Kembalikan tombol ke "Order" setelah beberapa detik
+    setTimeout(() => {
+      setButtonText("Order");
+      setIsLoading(false); // Matikan loading
+    }, 2000); // Ganti tombol setelah 2 detik
   };
 
   return (
@@ -96,8 +111,9 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
             <button
               className="bg-black text-white text-xl font-semibold py-2 w-[300px] hover:bg-gray-900 transition"
               onClick={handleOrder} // ✅ Tombol Order
+              disabled={isLoading} // Nonaktifkan tombol saat loading
             >
-              Order
+              {buttonText} {/* Tampilkan teks dinamis */}
             </button>
 
             <button className="bg-black text-white w-[48px] py-3 text-xl font-bold hover:bg-gray-900 transition">

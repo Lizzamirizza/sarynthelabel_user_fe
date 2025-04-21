@@ -23,7 +23,7 @@ export default function Login() {
             });
 
             // Step 2: Login
-            await axios.post("http://localhost:8000/login", {
+            await axios.post("http://localhost:8000/api/login", {
                 email,
                 password,
             }, {
@@ -35,10 +35,24 @@ export default function Login() {
             //     withCredentials: true,
             // });
 
-            router.push("/dashboard"); // redirect setelah login
+            router.push("/beranda"); // arahkan ke beranda setelah login berhasil
         } catch (err: any) {
-            setError(err.response?.data?.message || "Login gagal.");
-        }
+            // Menangani error lebih detail
+            if (err.response) {
+                // Jika server memberikan respons, tampilkan pesan yang lebih spesifik
+                if (err.response.status === 401) {
+                    setError("Email atau password salah.");
+                } else {
+                    setError(err.response?.data?.message || "Login gagal, silakan coba lagi.");
+                }
+            } else if (err.request) {
+                // Jika tidak ada respons dari server (misalnya masalah jaringan)
+                setError("Tidak dapat terhubung ke server. Periksa koneksi internet Anda.");
+            } else {
+                // Jika ada kesalahan lain di luar permintaan atau respons
+                setError("Terjadi kesalahan, silakan coba lagi.");
+            }
+        }   
     };
 
     return (

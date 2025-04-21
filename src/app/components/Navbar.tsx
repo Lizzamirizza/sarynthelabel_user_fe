@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaHome } from "react-icons/fa"; // Import ikon FaHome dari react-icons
 import { getCart } from "../utils/cart"; // Fungsi untuk mengambil cart dari localStorage
 
 export default function Navbar(): React.JSX.Element {
@@ -22,9 +23,11 @@ export default function Navbar(): React.JSX.Element {
       
       {/* Icons positioned in the middle of the right-side space */}
       <div className="absolute right-[15%] flex gap-6">
+        {/* Ganti ikon Home dengan FaHome dari react-icons */}
         <Link href="/beranda">
-          <Image src="/home.svg" alt="Home" width={22} height={22} className="cursor-pointer" />
+          <FaHome size={22} className="cursor-pointer" /> {/* Ikon home dari react-icons */}
         </Link>
+        
         <Link href="/search">
           <Image src="/search.svg" alt="Search" width={22} height={22} className="cursor-pointer" />
         </Link>
